@@ -24,8 +24,8 @@ const NavBar = (props) => {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem> onC
-              <NavLink to = "/LoginPage">Log In</NavLink>
+            <NavItem>
+              <NavLink to ="/LoginPage">Log In</NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/RegistrationPage" >Register</NavLink>
