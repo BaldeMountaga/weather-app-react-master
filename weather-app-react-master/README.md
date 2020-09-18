@@ -1,6 +1,6 @@
 # React - weather-app
 
-https://rawfour.github.io/weather-app-react/
+https://github.com/BaldeMountaga/weather-app-react-master.git
 
 ## Table of contents
 * [Instructions](#Instructions)
