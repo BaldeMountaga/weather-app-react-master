@@ -65,7 +65,7 @@ const SearchIcon = styled.span`
   }
 `;
 
-const SearchCity = ({ submit, value, change, showResult }) => {
+const SearchCity = ({ submit, value, change, showResult}) => {
   return (
     <>
       <SearchBar showResult={showResult} onSubmit={submit}>

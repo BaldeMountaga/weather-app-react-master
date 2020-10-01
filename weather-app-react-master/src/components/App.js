@@ -5,6 +5,11 @@ import device from '../responsive/Device';
 import Result from './Result';
 import NotFound from './NotFound';
 import Navbar from './navbar'
+import weatherHistory from './weatherHistory.css'
+
+
+
+
 
 const AppTitle = styled.h1`
   display: block;
@@ -66,7 +71,28 @@ class App extends React.Component {
     value: '',
     weatherInfo: null,
     error: false,
+    searchHistory: window.sessionStorage.searchHistory !== undefined ? JSON.parse(window.sessionStorage.searchHistory) : []
   };
+
+  //getting the search history
+  updateSearchHistory = historyItem => {
+    let allHistory = this.state.searchHistory;     
+    
+    if(allHistory.length <= 4){
+      allHistory.push(historyItem);
+      this.setState ({searchHistory:allHistory});
+      window.sessionStorage.searchHistory = JSON.stringify(this.state.searchHistory)
+
+    }
+    console.log("Length of histories:", allHistory.length);
+  }
+  getHistoryItem = query => {
+    const history = {
+      query : query,
+      result : this.state.weatherInfo
+    }
+    return history;
+  }
 
   handleInputChange = e => {
     this.setState({
@@ -133,6 +159,9 @@ class App extends React.Component {
           weatherInfo,
           error: false,
         });
+        //handling history
+        const history = this.getHistoryItem(value);
+        this.updateSearchHistory(history);
       })
       .catch(error => {
         console.log(error);
@@ -143,27 +172,31 @@ class App extends React.Component {
         });
       });
   };
+ 
 
   render() {
-    const { value, weatherInfo, error } = this.state;
+    
+    const { value, weatherInfo, error, searchHistory } = this.state;
     return (
       <>
-     
-        {/* <AppTitle showLabel={(weatherInfo || error) && true}>Weather app</AppTitle> */}
         <WeatherWrapper>
           <Navbar />
-          <AppTitle secondary showResult={(weatherInfo || error) && true}>
-            Weather app
-          </AppTitle>
+          
+          <AppTitle secondary showResult={(weatherInfo || error) && true}></AppTitle>
           <SearchCity
             value={value}
             showResult={(weatherInfo || error) && true}
             change={this.handleInputChange}
             submit={this.handleSearchCity}
+            updateSearchHistory = {this.updateSearchHistory}
           />
+          <div className="weatherHistory">
+            <h4 className="user-serhistor">User Search History</h4>
+            {searchHistory.map(search => (<p className="list-cities">{search.query}</p>))}
+          </div>
           {weatherInfo && <Result weather={weatherInfo} />}
           {error && <NotFound error={error} />}
-        </WeatherWrapper>
+        </WeatherWrapper> 
       </>
     );
   }

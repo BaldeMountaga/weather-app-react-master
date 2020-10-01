@@ -1,68 +1,56 @@
-import React from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
-import LoginPage from './LoginPage'
+import React, { useState } from 'react';
 
-
-function RegistrationPage() {
-  
-  return (
-    <div>
-      <Form>
-        <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="exampleEmail">Email</Label>
-              <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" valid/>
-              <FormFeedback>Sucess</FormFeedback>
-              <FormText>Please fill this</FormText>
-            </FormGroup>
-          </Col>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="examplePassword">Password</Label>
-              <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" valid/>
-              <FormFeedback>Sucess</FormFeedback>
-              <FormText>Please fill this</FormText>
-            </FormGroup>
-          </Col>
-        </Row>
-        <FormGroup>
-          <Label for="exampleAddress">Address</Label>
-          <Input type="text" name="address" id="exampleAddress" placeholder="1234 Main St" valid/>
-          <FormFeedback>Sucess</FormFeedback>
-          <FormText>Please fill this</FormText>
-        </FormGroup>      
-        <Row form>
-          <Col md={6}>
-            <FormGroup>
-              <Label for="exampleCity">City</Label>
-              <Input type="text" name="city" id="exampleCity"/>
-            </FormGroup>
-          </Col>
-          <Col md={4}>
-            <FormGroup>
-              <Label for="exampleState">State</Label>
-              <Input type="text" name="state" id="exampleState"/>
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <FormGroup>
-              <Label for="exampleZip">Zip</Label>
-              <Input type="text" name="zip" id="exampleZip" valid/>
-              <FormFeedback>Sucess</FormFeedback>
-              <FormText>Please fill this</FormText>
-            </FormGroup>  
-          </Col>
-        </Row>
-        <FormGroup check>
-          <Input type="checkbox" name="check" id="exampleCheck" valid/>
-          <FormFeedback>Sucess</FormFeedback>
-          <FormText>Please fill this</FormText>
-          <Label for="exampleCheck" check>Check me out</Label>
-        </FormGroup>
-        <Button color="success" onClick={LoginPage}>Register</Button>
-      </Form>
-    </div>
-  );
+const myStyle ={
+  marginBottom: '15px'
 }
-export default RegistrationPage;
+
+function Register(props) {
+  
+const [show, setShow] = useState(false);
+
+function showSignUp(e){
+  setShow(true);
+}
+
+return (      
+  <div>
+    <h2>Registration Form</h2>
+
+    <button onClick={showSignUp} style={{width:"auto"}} className="btn btn-success">Sign Up</button>
+          
+      { show ? (
+              <div id="id01" className="modal" style={{display:'block' }}>
+              <span className="close" title="Close Modal">&times;</span>
+              <form className="modal-content" >
+                <div className="container">
+                  <h1>Sign Up</h1>
+                  <p>Please fill in this form to create an account.</p>
+                  <hr/>
+                  <label htmlFor="email"><b>Email</b></label>
+                  <input type="text" placeholder="Enter Email" name="email" required />
+
+                  <label htmlFor="psw"><b>Password</b></label>
+                  <input type="password" placeholder="Enter Password" name="psw" required />
+
+                  <label htmlFor="psw-repeat"><b>Repeat Password</b></label>
+                  <input type="password" placeholder="Repeat Password" name="psw-repeat" required />
+                  
+                  <label>
+                    <input type="checkbox" checked="checked" name="remember" style={myStyle} readOnly={true} /> Remember me
+                  </label>
+
+                  <p>By creating an account you agree to our <a href="/" style={{color:"dodgerblue"}}>Terms &amp; Privacy</a>.</p>
+
+                  <div className="clearfix">
+                    <button type="submit" className="btn btn-success mr-3" >Sign Up</button>
+                    <button type="button" className="btn btn-danger ">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>) : null
+          }
+            
+        </div>
+  )
+}
+export default Register;
